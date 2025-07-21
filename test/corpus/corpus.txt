@@ -1,0 +1,78 @@
+================================================================================
+Comments
+================================================================================
+
+// This is a line comment
+/* This is a
+   block comment */
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line_comment)
+  (block_comment))
+
+================================================================================
+Simple functions
+================================================================================
+
+fn main() -> i32 {
+    42
+}
+
+fn add(a: i32, b: i64) -> i32 {
+    a + b
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_item
+    name: (identifier)
+    parameters: (parameters)
+    return_type: (primitive_type)
+    body: (block
+          (integer_literal)))
+  (function_item
+    name: (identifier)
+    parameters: (parameters
+      (parameter
+        name: (identifier)
+        type: (primitive_type))
+      (parameter
+        name: (identifier)
+        type: (primitive_type)))
+    return_type: (primitive_type)
+    body: (block
+      (binary_expression
+          left: (identifier)
+          right: (identifier)))))
+
+================================================================================
+Statements
+================================================================================
+
+fn main() -> i32 {
+    let x: i32 = 42;
+    x = x + 58;
+    x
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_item
+  name: (identifier)
+  parameters: (parameters)
+  return_type: (primitive_type)
+  body: (block
+    (let_statement
+      name: (identifier)
+      type: (primitive_type)
+      value: (integer_literal))
+    (assignment_statement
+      name: (identifier)
+      value: (binary_expression
+        left: (identifier)
+        right: (integer_literal)))
+    (identifier))))

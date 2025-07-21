@@ -1,0 +1,39 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "rue",
+      "camelcase": "Rue",
+      "title": "Rue",
+      "scope": "source.rue",
+      "file-types": [
+        "rue"
+      ],
+      "injection-regex": "^rue$",
+      "class-name": "TreeSitterRue"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Rue grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "lpnh",
+        "email": "paniguel.lpnh@gmail.com"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/lpnh/tree-sitter-rue"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}

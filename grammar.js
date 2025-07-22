@@ -136,10 +136,10 @@ module.exports = grammar({
 
     call_expression: $ => prec(5, seq(
       field('function', $.identifier),
-      field('arguments', $.argument_list)
+      field('arguments', $.arguments)
     )),
 
-    argument_list: $ => seq(
+    arguments: $ => seq(
       '(',
       optional(commaSep($._expression)),
       ')'

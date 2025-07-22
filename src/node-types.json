@@ -709,6 +709,11 @@
     "fields": {}
   },
   {
+    "type": "unit_type",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "while_expression",
     "named": true,
     "fields": {
@@ -891,10 +896,6 @@
   {
     "type": "true",
     "named": false
-  },
-  {
-    "type": "unit_type",
-    "named": true
   },
   {
     "type": "while",

@@ -61,8 +61,8 @@ module.exports = grammar({
     ),
 
     primitive_type: $ => choice('i32', 'i64', 'bool'),
-    
-    unit_type: $ => '()',
+
+    unit_type: $ => seq('(', ')'),
 
     // ========== Statements ==========
 

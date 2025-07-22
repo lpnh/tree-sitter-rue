@@ -1,6 +1,6 @@
 [
   {
-    "type": "argument_list",
+    "type": "arguments",
     "named": true,
     "fields": {},
     "children": {
@@ -317,7 +317,7 @@
         "required": true,
         "types": [
           {
-            "type": "argument_list",
+            "type": "arguments",
             "named": true
           }
         ]
@@ -690,11 +690,6 @@
     "fields": {}
   },
   {
-    "type": "unit_type",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "while_expression",
     "named": true,
     "fields": {
@@ -762,10 +757,6 @@
   },
   {
     "type": "(",
-    "named": false
-  },
-  {
-    "type": "()",
     "named": false
   },
   {
@@ -881,6 +872,10 @@
   {
     "type": "true",
     "named": false
+  },
+  {
+    "type": "unit_type",
+    "named": true
   },
   {
     "type": "while",

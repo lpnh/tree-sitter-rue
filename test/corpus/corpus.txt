@@ -120,6 +120,6 @@ fn main() -> i32 {
       (expression_statement
         (call_expression
           function: (identifier)
-          arguments: (argument_list
+          arguments: (arguments
             (integer_literal))))
       (integer_literal))))

@@ -8,6 +8,7 @@
 // @ts-check
 
 const PREC = {
+  function_calls: 4,
   multiplicative: 3,
   additive: 2,
   comparative: 1,
@@ -120,21 +121,23 @@ module.exports = grammar({
       field('body', $.block)
     )),
 
-    binary_expression: $ => choice(
-      ...[
-        [PREC.comparative, choice('==', '!=', '<', '<=', '>', '>=')],
-        [PREC.additive, choice('+', '-')],
+    binary_expression: $ => {
+      const table = [
         [PREC.multiplicative, choice('*', '/', '%')],
-      ].map(([precedence, operator]) => 
-        prec.left(precedence, seq(
-          field('left', $._expression),
-          field('operator', operator),
-          field('right', $._expression)
-        ))
-      )
-    ),
+        [PREC.additive, choice('+', '-')],
+        [PREC.comparative, choice('==', '!=', '<', '<=', '>', '>=')],
+      ];
 
-    call_expression: $ => prec(5, seq(
+      // @ts-ignore
+      return choice(...table.map(([precedence, operator]) => prec.left(precedence, seq(
+        field('left', $._expression),
+        // @ts-ignore
+        field('operator', operator),
+        field('right', $._expression),
+      ))));
+    },
+
+    call_expression: $ => prec(PREC.function_calls, seq(
       field('function', $.identifier),
       field('arguments', $.arguments)
     )),
@@ -163,7 +166,7 @@ module.exports = grammar({
 
     boolean_literal: $ => choice('true', 'false'),
 
-    unit_literal: $ => prec(1, '()'),
+    unit_literal: $ => seq('(', ')'),
 
     line_comment: $ => token(seq('//', /.*/)),
 

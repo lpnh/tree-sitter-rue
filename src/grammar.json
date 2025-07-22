@@ -409,7 +409,7 @@
       "members": [
         {
           "type": "PREC_LEFT",
-          "value": 1,
+          "value": 3,
           "content": {
             "type": "SEQ",
             "members": [
@@ -429,27 +429,15 @@
                   "members": [
                     {
                       "type": "STRING",
-                      "value": "=="
+                      "value": "*"
                     },
                     {
                       "type": "STRING",
-                      "value": "!="
+                      "value": "/"
                     },
                     {
                       "type": "STRING",
-                      "value": "<"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "<="
-                    },
-                    {
-                      "type": "STRING",
-                      "value": ">"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": ">="
+                      "value": "%"
                     }
                   ]
                 }
@@ -509,7 +497,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": 3,
+          "value": 1,
           "content": {
             "type": "SEQ",
             "members": [
@@ -529,15 +517,27 @@
                   "members": [
                     {
                       "type": "STRING",
-                      "value": "*"
+                      "value": "=="
                     },
                     {
                       "type": "STRING",
-                      "value": "/"
+                      "value": "!="
                     },
                     {
                       "type": "STRING",
-                      "value": "%"
+                      "value": "<"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "<="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ">"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ">="
                     }
                   ]
                 }
@@ -557,7 +557,7 @@
     },
     "call_expression": {
       "type": "PREC",
-      "value": 5,
+      "value": 4,
       "content": {
         "type": "SEQ",
         "members": [
@@ -574,13 +574,13 @@
             "name": "arguments",
             "content": {
               "type": "SYMBOL",
-              "name": "argument_list"
+              "name": "arguments"
             }
           }
         ]
       }
     },
-    "argument_list": {
+    "arguments": {
       "type": "SEQ",
       "members": [
         {
@@ -690,12 +690,17 @@
       ]
     },
     "unit_literal": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "STRING",
-        "value": "()"
-      }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
     },
     "line_comment": {
       "type": "TOKEN",

@@ -76,3 +76,50 @@ fn main() -> i32 {
         left: (identifier)
         right: (integer_literal)))
     (identifier))))
+
+================================================================================
+Unit
+================================================================================
+
+fn print_value(n: i32) -> () {
+    // In a real implementation, this might print to stdout
+    // For now, it just demonstrates a unit-returning function
+    n;
+}
+
+fn main() -> i32 {
+    let x: () = ();  // Unit literal
+    print_value(42);
+    0
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_item
+  name: (identifier)
+  parameters: (parameters
+    (parameter
+    name: (identifier)
+    type: (primitive_type)))
+  return_type: (unit_type)
+  body: (block
+    (line_comment)
+    (line_comment)
+    (expression_statement
+      (identifier))))
+  (function_item
+    name: (identifier)
+    parameters: (parameters)
+    return_type: (primitive_type)
+    body: (block
+      (let_statement
+        name: (identifier)
+        type: (unit_type)
+        value: (unit_literal)) (line_comment)
+      (expression_statement
+        (call_expression
+          function: (identifier)
+          arguments: (argument_list
+            (integer_literal))))
+      (integer_literal))))

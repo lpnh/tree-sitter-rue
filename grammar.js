@@ -1,7 +1,7 @@
 /**
  * @file Rue grammar for tree-sitter
  * @author lpnh <paniguel.lpnh@gmail.com>
- * @license MIT
+ * @license Unlicense
  */
 
 /// <reference types="tree-sitter-cli/dsl" />

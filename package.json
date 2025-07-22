@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Rue grammar for tree-sitter",
   "repository": "https://github.com/lpnh/tree-sitter-rue",
-  "license": "MIT",
+  "license": "Unlicense",
   "author": {
     "name": "lpnh",
     "email": "paniguel.lpnh@gmail.com"

@@ -78,6 +78,40 @@ fn main() -> i32 {
     (identifier))))
 
 ================================================================================
+Booleans
+================================================================================
+
+fn main() -> i32 {
+    let colors: bool = true;
+    let mirror: bool = false;
+
+    if colors {
+        mirror
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_item
+    name: (identifier)
+    parameters: (parameters)
+    return_type: (primitive_type)
+    body: (block
+      (let_statement
+        name: (identifier)
+        type: (primitive_type)
+        value: (boolean_literal))
+      (let_statement
+        name: (identifier)
+        type: (primitive_type)
+        value: (boolean_literal))
+      (if_expression
+        condition: (identifier)
+        consequence: (block
+          (identifier))))))
+
+================================================================================
 Nested if expressions
 ================================================================================
 

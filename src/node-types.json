@@ -335,6 +335,25 @@
     }
   },
   {
+    "type": "else_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "if_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "expression_statement",
     "named": true,
     "fields": {},
@@ -440,7 +459,7 @@
         "required": false,
         "types": [
           {
-            "type": "block",
+            "type": "else_clause",
             "named": true
           }
         ]

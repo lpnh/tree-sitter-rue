@@ -78,6 +78,63 @@ fn main() -> i32 {
     (identifier))))
 
 ================================================================================
+Nested if expressions
+================================================================================
+
+fn main() -> i32 {
+    let x: i32 = 1;
+    if condition1 {
+        let a: i32 = 10;
+        a
+    } else if condition2 {
+        let b: i32 = 20;
+        b
+    } else {
+        let c: i32 = 30;
+        c
+    }
+    // None of a, b, or c are accessible here
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_item
+    name: (identifier)
+    parameters: (parameters)
+    return_type: (primitive_type)
+    body: (block
+      (let_statement
+        name: (identifier)
+        type: (primitive_type)
+        value: (integer_literal))
+      (if_expression
+        condition: (identifier)
+        consequence: (block
+          (let_statement
+            name: (identifier)
+            type: (primitive_type)
+            value: (integer_literal))
+          (identifier))
+        alternative: (else_clause
+          (if_expression
+            condition: (identifier)
+            consequence: (block
+              (let_statement
+                name: (identifier)
+                type: (primitive_type)
+                value: (integer_literal))
+              (identifier))
+            alternative: (else_clause
+              (block
+                (let_statement
+                  name: (identifier)
+                  type: (primitive_type)
+                  value: (integer_literal))
+                (identifier))))))
+    (line_comment))))
+
+================================================================================
 Unit
 ================================================================================
 

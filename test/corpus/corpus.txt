@@ -231,3 +231,57 @@ fn main() -> i32 {
           arguments: (arguments
             (integer_literal))))
       (integer_literal))))
+
+================================================================================
+Return types
+================================================================================
+
+fn zero() -> i32 {
+    0
+}
+
+fn one() -> i64 {
+    1
+}
+
+fn colors() -> bool {
+    true
+}
+
+fn ok() -> () {
+    ()
+}
+
+fn main() {}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_item
+  name: (identifier)
+  parameters: (parameters)
+  return_type: (primitive_type)
+  body: (block
+    (integer_literal)))
+  (function_item
+  name: (identifier)
+  parameters: (parameters)
+  return_type: (primitive_type)
+  body: (block
+    (integer_literal)))
+  (function_item
+  name: (identifier)
+  parameters: (parameters)
+  return_type: (primitive_type)
+  body: (block
+    (boolean_literal)))
+  (function_item
+  name: (identifier)
+  parameters: (parameters)
+  return_type: (unit_type)
+  body: (block
+    (unit_literal)))
+  (function_item
+  name: (identifier)
+  parameters: (parameters)
+  body: (block)))

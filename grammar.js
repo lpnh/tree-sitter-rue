@@ -36,8 +36,7 @@ module.exports = grammar({
       'fn',
       field('name', $.identifier),
       field('parameters', $.parameters),
-      '->',
-      field('return_type', $._type),
+      optional(seq('->', field('return_type', $._type))),
       field('body', $.block)
     ),
 

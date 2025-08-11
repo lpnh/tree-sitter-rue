@@ -285,3 +285,113 @@ fn main() {}
   name: (identifier)
   parameters: (parameters)
   body: (block)))
+
+================================================================================
+Structs
+================================================================================
+
+struct Box {}
+
+struct Point {
+  x: i32,
+  y: i32,
+}
+
+fn main() {
+    let p1 = Point { x: 1, y: 2 };
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (struct_item
+    name: (type_identifier))
+  (struct_item
+    name: (type_identifier)
+    body: (field_declaration_list
+      (field_declaration
+        name: (field_identifier)
+        type: (primitive_type))
+      (field_declaration
+        name: (field_identifier)
+        type: (primitive_type))))
+  (function_item
+    name: (identifier)
+    parameters: (parameters)
+    body: (block
+      (let_statement
+        name: (identifier)
+          value: (struct_expression
+            name: (type_identifier)
+            body: (field_initializer_list
+              (field_initializer
+                field: (field_identifier)
+                value: (integer_literal))
+              (field_initializer
+                field: (field_identifier)
+                value: (integer_literal))))))))
+
+================================================================================
+Tuples
+================================================================================
+
+fn main() {
+    let coords: (i32, i32) = (10, 20);
+    let single: (i32,) = (42,);
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_item
+  name: (identifier)
+  parameters: (parameters)
+  body: (block
+    (let_statement
+      name: (identifier)
+      type: (tuple_type
+        (primitive_type)
+        (primitive_type))
+      value: (tuple_expression
+        (integer_literal)
+        (integer_literal)))
+    (let_statement
+      name: (identifier)
+      type: (tuple_type
+        (primitive_type))
+      value: (tuple_expression
+        (integer_literal))))))
+
+================================================================================
+Arrays
+================================================================================
+
+fn main() {
+    let numbers: [i32; 5] = [1, 2, 3, 4, 5];
+    let empty_array: [bool; 0] = [];
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_item
+  name: (identifier)
+  parameters: (parameters)
+  body: (block
+    (let_statement
+      name: (identifier)
+      type: (array_type
+        element: (primitive_type)
+        length: (integer_literal))
+      value: (array_expression
+        (integer_literal)
+        (integer_literal)
+        (integer_literal)
+        (integer_literal)
+        (integer_literal)))
+    (let_statement
+      name: (identifier)
+      type: (array_type
+        element: (primitive_type)
+        length: (integer_literal))
+      value: (array_expression)))))

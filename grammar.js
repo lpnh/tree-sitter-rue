@@ -14,8 +14,6 @@ const PREC = {
   comparative: 1,
 };
 
-const commaSep = rule => seq(rule, repeat(seq(',', rule)));
-
 module.exports = grammar({
   name: 'rue',
 
@@ -27,10 +25,36 @@ module.exports = grammar({
 
   word: $ => $.identifier,
 
+  conflicts: $ => [
+    [$._primary_expression, $._type_identifier],
+  ],
+
   rules: {
-    source_file: $ => repeat($.function_item),
+    source_file: $ => repeat(choice(
+      $.struct_item,
+      $.function_item
+    )),
 
     // ========== Definitions ==========
+
+    struct_item: $ => seq(
+      'struct',
+      field('name', $._type_identifier),
+      '{',
+      field('body', optional($.field_declaration_list)),
+      '}'
+    ),
+
+    field_declaration_list: $ => seq(
+      sepByComma($.field_declaration),
+      optional(',')
+    ),
+
+    field_declaration: $ => seq(
+      field('name', $._field_identifier),
+      ':',
+      field('type', $._type),
+    ),
 
     function_item: $ => seq(
       'fn',
@@ -42,7 +66,7 @@ module.exports = grammar({
 
     parameters: $ => seq(
       '(',
-      optional(commaSep($.parameter)),
+      optional(sepByComma($.parameter)),
       ')'
     ),
 
@@ -55,13 +79,42 @@ module.exports = grammar({
     // ========== Types ==========
 
     _type: $ => choice(
-      $.primitive_type,
-      $.unit_type
+      $.tuple_type,
+      $.unit_type,
+      $.array_type,
+      $._type_identifier,
+      $.primitive_type
     ),
 
     primitive_type: $ => choice('i32', 'i64', 'bool'),
 
-    unit_type: $ => seq('(', ')'),
+    tuple_type: $ => choice(
+      seq(
+        '(',
+        $._type,
+        ',',
+        ')'
+      ),
+      seq(
+        '(',
+        seq(
+          $._type,
+          repeat1(seq(',', $._type)),
+          optional(',')
+        ),
+        ')'
+      )
+    ),
+
+    unit_type: $ => seq('(', ')'), // empty tuple
+
+    array_type: $ => seq(
+      '[',
+      field('element', $._type),
+      ';',
+      field('length', $.integer_literal), // why not _expression (?)
+      ']',
+    ),
 
     // ========== Statements ==========
 
@@ -81,8 +134,10 @@ module.exports = grammar({
     let_statement: $ => seq(
       'let',
       field('name', $.identifier),
-      ':',
-      field('type', $._type),
+      optional(seq(
+        ':',
+        field('type', $._type),
+      )), // is the type really optional (?)
       '=',
       field('value', $._expression),
       ';'
@@ -147,7 +202,7 @@ module.exports = grammar({
 
     arguments: $ => seq(
       '(',
-      optional(commaSep($._expression)),
+      optional(sepByComma($._expression)),
       ')'
     ),
 
@@ -156,10 +211,60 @@ module.exports = grammar({
       $.integer_literal,
       $.boolean_literal,
       $.unit_literal,
-      $.parenthesized_expression
+      $.parenthesized_expression,
+      $.tuple_expression,
+      $.array_expression,
+      $.struct_expression
     ),
 
     parenthesized_expression: $ => seq('(', $._expression, ')'),
+
+    tuple_expression: $ => choice(
+      seq(
+        '(',
+        $._expression,
+        ',',
+        ')'
+      ),
+      seq(
+        '(',
+        seq(
+          $._expression,
+          repeat1(seq(',', $._expression)),
+          optional(',')
+        ),
+        ')'
+      )
+    ),
+
+    unit_expression: _ => seq('(', ')'),
+
+    struct_expression: $ => seq(
+      field('name', $._type_identifier),
+      '{',
+      optional(field('body', $.field_initializer_list)),
+      '}'
+    ),
+
+    field_initializer_list: $ => seq(
+      sepByComma($.field_initializer),
+      optional(',')
+    ),
+
+    field_initializer: $ => seq(
+      field('field', $._field_identifier),
+      ':',
+      field('value', $._expression)
+    ),
+
+    array_expression: $ => seq(
+      '[',
+      optional(seq(
+        sepByComma($._expression),
+        optional(','),
+      )),
+      ']'
+    ),
 
     // ========== Tokens ==========
 
@@ -178,5 +283,12 @@ module.exports = grammar({
       /[^*]*\*+([^/*][^*]*\*+)*/,
       '/'
     )),
+
+    _type_identifier: $ => alias($.identifier, $.type_identifier),
+    _field_identifier: $ => alias($.identifier, $.field_identifier),
   }
 });
+
+function sepByComma(rule) {
+  return seq(rule, repeat(seq(',', rule)));
+}
